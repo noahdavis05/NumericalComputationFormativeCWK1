@@ -49,17 +49,34 @@ Iteration 25 Estimated value 0.0 Error 3.141592653589793
 ```
 After this iteration 25, the code crashed because of division by zero error.
 
+<br>
+
+ ### Here is a screenshot of a plot of the prediction's error, over iterations.<br>
+![Alt text](pic1.png)
+
+This shows how the error started off quite great and gradually improved until the around the 13th iteration. Here the predictions started to fall off quite dramatically until it got worse than the first iteration and eventually crashed the program.
+
+
 ## Interpretation
-When I ran this code, I didn't expect it to crash as I thought that my value of 'p' wouldn't be able to go less than pi, however, it went down to zero.<br>
-My best result was after iteration 11, then after this iteration, the results got worse and worse. This was very unexpected as i thought that the more iterations I did the smaller my error would be. <br>
-As I knew my results weren't as they should be, i decided to look into what could be causing this problem. I realised that my values were losing accuracy and this was causing my issues.
+When I first ran the code, I expected my value of p to converge smoothly towards 
+𝜋
+, with each iteration reducing the error. However, unexpectedly, after a certain point, the value of p began to diverge and eventually approached zero. This was quite surprising because I had anticipated that the error would continue to decrease as the iterations progressed, but after iteration 11, the results worsened dramatically.
+
+Upon investigating the cause, I realized that the issue was related to the accuracy of the computations. Specifically, my values were losing precision due to numerical instability in the original formula. As the iterations progressed, small errors began to accumulate and compound, leading to a significant deviation in the estimated value of p. This instability was caused by a subtraction of nearly equal numbers in the formula, which amplified rounding errors and caused the algorithm to break down.
 
 ## Improved formulation
-I firstly tried to use np.float64 class instead of typical floats as I thought that my values weren't accurate enough, however, this didn't work. Then I realised, the problem was with the formula itself. The formula, in its current form, was introducing numerical instability because of a subtraction of nearly equal numbers (especially as p grows), and each new value of p is based on the last, these small losses compound to a big loss. <br>
-Therefore, I changed the formula to 
-$$
-p_{n+1} = \frac{p_n}{\sqrt{p_n^2 + 1} + 1}
-$$
+To address this issue, I first attempted to increase the precision of the calculations by switching to the np.float64 data type, assuming that this might resolve the accuracy problem. However, this change alone did not solve the issue, as the real source of the instability lay in the mathematical formulation itself.
+
+The original formula was introducing significant numerical errors due to the subtraction of very similar values. This phenomenon, known as catastrophic cancellation, occurs when subtracting nearly equal numbers causes the result to lose significant digits of precision, which then compounds with each iteration.
+
+To fix this, I reformulated the update equation to avoid such subtractions. I replaced the original equation with:
+
+![ALT TEXT](pic3.png)
+
+This new formulation avoids subtracting nearly equal terms, thus eliminating the primary source of numerical instability. The new formula allows the algorithm to proceed with much greater precision, leading to more accurate results and stable convergence towards 
+𝜋
+.
+
 ## Improved Implementation
 Here is my new code, which implements the new function.
 ```
@@ -143,5 +160,19 @@ Iteration 49 Estimated value 3.1415926535897967 Error 3.552713678800501e-15
 Iteration 50 Estimated value 3.1415926535897967 Error 3.552713678800501e-15
 
 ```
+
+### Here is a screenshot of a plot of the prediction's error, over iterations.<br>
+![Alt text](pic2.png)
+
+This shows the errors decreases logarithmically over iterations. And with more iterations seems to close in on the real value of pi.
+
 ## Interpretation
-These results were far far better as I got an incredibly accurate approximation for pi. This shows, that the new formula greatly removed any numerical instability.
+The results from the improved algorithm were significantly better, yielding a highly accurate approximation of 
+𝜋
+. As shown in the plot, the error decreases logarithmically with each iteration, steadily converging towards the true value of 
+𝜋
+. With more iterations, the approximation becomes even more precise, confirming the stability of the revised formula.
+
+This dramatic improvement demonstrates that the new formula successfully eliminates the numerical instability that plagued the original approach. By avoiding the subtraction of nearly equal numbers, the new formulation not only preserves accuracy but also ensures that errors do not accumulate as they did before. As a result, the algorithm now converges efficiently, offering a robust and reliable method for approximating 
+𝜋
+.
