@@ -1,4 +1,4 @@
-# Approximating Pi using Achimeded method
+# Approximating Pi using Archimedes method
 ## Implementation
 In my first attempt, I implemented this code as such. I used the formula given and iterated from nought through 50 to attempt to close in on a good approximation for pi.
 ```
@@ -75,7 +75,7 @@ To fix this, I reformulated the update equation to avoid such subtractions. I re
 
 This new formulation avoids subtracting nearly equal terms, thus eliminating the primary source of numerical instability. The new formula allows the algorithm to proceed with much greater precision, leading to more accurate results and stable convergence towards 
 𝜋
-.
+. This plot was generated using matplotlib and my results from the code above.
 
 ## Improved Implementation
 Here is my new code, which implements the new function.
@@ -164,15 +164,9 @@ Iteration 50 Estimated value 3.1415926535897967 Error 3.552713678800501e-15
 ### Here is a screenshot of a plot of the prediction's error, over iterations.<br>
 ![Alt text](pic2.png)
 
-This shows the errors decreases logarithmically over iterations. And with more iterations seems to close in on the real value of pi.
+This shows the errors decreases logarithmically over iterations. And with more iterations seems to close in on the real value of pi. This plot was generated using matplotlib and my results from the code above.
 
 ## Interpretation
-The results from the improved algorithm were significantly better, yielding a highly accurate approximation of 
-𝜋
-. As shown in the plot, the error decreases logarithmically with each iteration, steadily converging towards the true value of 
-𝜋
-. With more iterations, the approximation becomes even more precise, confirming the stability of the revised formula.
+The improved algorithm gave much better results, providing a very accurate estimate of π. As shown in the graph, the error gets smaller with each iteration, and the estimate steadily gets closer to the true value of π. With more iterations, the estimate becomes even more accurate, showing that the new formula is stable.
 
-This dramatic improvement demonstrates that the new formula successfully eliminates the numerical instability that plagued the original approach. By avoiding the subtraction of nearly equal numbers, the new formulation not only preserves accuracy but also ensures that errors do not accumulate as they did before. As a result, the algorithm now converges efficiently, offering a robust and reliable method for approximating 
-𝜋
-.
+This big improvement shows that the new formula avoids the problems that the original method had. By not subtracting numbers that are almost the same, the new method keeps the accuracy and prevents errors from building up over time. Because of this, the algorithm now converges more quickly and provides a reliable way to estimate π.
